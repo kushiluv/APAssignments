@@ -1,9 +1,9 @@
 package com.company;
 
 public class hospital {
-    String name;
-    int pincode;
-    int uniqueid;
+    private String name;
+    private int pincode;
+    private int uniqueid;
 
     public hospital(String name, int pincode) {
         this.name = name;

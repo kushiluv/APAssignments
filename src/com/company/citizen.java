@@ -1,9 +1,9 @@
 package com.company;
 
 public class citizen {
-    String name;
-    int age;
-    int uniqueid;
+    private String name;
+    private int age;
+    private int uniqueid;
 
     public citizen(String name, int age, int uniqueid) {
         this.name = name;

@@ -1,9 +1,10 @@
 package com.company;
 
 public class vaccine {
-    String name;
-    int doses_num;
-    int doses_gap;
+    private String name;
+    private int doses_num;
+    private int doses_gap;
+
     public vaccine(String name, int doses_num){
         this.name = name;
         this.doses_num = doses_num;
