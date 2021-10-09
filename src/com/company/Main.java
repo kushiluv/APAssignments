@@ -4,6 +4,7 @@ package com.company;
 import java.util.Scanner;
 
 public class Main {
+
     public static class vaccine {
         private String name;
         private int doses_num;
@@ -103,96 +104,103 @@ public class Main {
         }
 
         public void display(){
-            System.out.println("Slot added by hospital "+hid+" for Day "+day+", Available quantity:"+quantity+" of Vaccine "+Main.vac[vac_no].getName());
+            System.out.println("Slot added by hospital "+hid+" for Day "+day+", Available quantity:"+quantity+" of Vaccine "+Menu.vac[vac_no].getName());
         }
         public void hospital_display(int Hospid){
 
-            for(int i = 0;i<Main.l;i++){
-                if(Main.slots[i].getHid()==Hospid){
-                    System.out.println("Day: "+Main.slots[i].getDay()+" Vaccine: "+Main.vac[i].getName()+"Available Qty: "+Main.slots[i].getQuantity());
+            for(int i = 0;i<Menu.l;i++){
+                if(Menu.slots[i].getHid()==Hospid){
+                    System.out.println("Day: "+Menu.slots[i].getDay()+" Vaccine: "+Menu.vac[i].getName()+"Available Qty: "+Menu.slots[i].getQuantity());
                 }
             }
         }
     }
-    static vaccine[] vac = new vaccine[1000];
-    static citizen[] zen=new citizen[1000];
-    static hospital[] hos = new hospital[1000];
-    static slots[] slots = new slots[1000];
-    static int i=0,j=0,k=0,l=0,huniqueid=100001;
-    public static final Scanner scan = new Scanner(System.in);
+    public class Menu {
+        static vaccine[] vac = new vaccine[1000];
+        static citizen[] zen = new citizen[1000];
+        static hospital[] hos = new hospital[1000];
+        static slots[] slots = new slots[1000];
+        static int i = 0, j = 0, k = 0, l = 0, huniqueid = 100001;
+        public static final Scanner scan = new Scanner(System.in);
 
 
-    public static void display_menu() {
-        System.out.println("CoWin Portal initialized....\n---------------------------------\n1. Add Vaccine\n2. Register Hospital\n3. Register Citizen\n" +
-                "4. Add Slot for Vaccination\n" +
-                "5. Book Slot for Vaccination\n" +
-                "6. List all slots for a hospital\n" +
-                "7. Check Vaccination Status\n" +
-                "8. Exit\n" +
-                "---------------------------------");
-    }
-    public static void vaccineadd_menu(){
-        String vname ;
-        int num , gap = 0;
-        System.out.println("Vaccine name: ");
-        vname = scan.next();
-        System.out.println("Number of Doses: ");
-        num = scan.nextInt();
-        if(num>1){
-            System.out.println("Gap between Doses: ");
-            gap = scan.nextInt();
+        public static void display_menu() {
+            System.out.println("CoWin Portal initialized....\n---------------------------------\n1. Add Vaccine\n2. Register Hospital\n3. Register Citizen\n" +
+                    "4. Add Slot for Vaccination\n" +
+                    "5. Book Slot for Vaccination\n" +
+                    "6. List all slots for a hospital\n" +
+                    "7. Check Vaccination Status\n" +
+                    "8. Exit\n" +
+                    "---------------------------------");
         }
-        vac[i] = new vaccine(vname,num,gap);
-        vac[i].display();
-        i++;
-    }
-    public static void hospitaladd_menu(){
-        String hname ;
-        int pincode ;
-        System.out.println("Hospital name: ");
-        hname = scan.next();
-        System.out.println("Pincode: ");
-        pincode = scan.nextInt();
-        hos[j] = new hospital(hname,pincode,huniqueid++);
-        hos[j].display();
-        j++;
-    }
 
-    public static void citizenadd_menu() {
-        String cname;
-        long cuniqueid;int age;
-        System.out.println("Citizen name: ");
-        cname = scan.next();
-        System.out.println("age: ");
-        age = scan.nextInt();
-        System.out.println("Unique ID: ");
-        cuniqueid = scan.nextLong();
-        if (age >= 18) {
-            zen[k] = new citizen(cname, age, cuniqueid);
-            zen[k].display();
-            k++;
-        } else {
-            System.out.println("Only above 18 are allowed");
+        public static void vaccineadd_menu() {
+            String vname;
+            int num, gap = 0;
+            System.out.println("Vaccine name: ");
+            vname = scan.next();
+            System.out.println("Number of Doses: ");
+            num = scan.nextInt();
+            if (num > 1) {
+                System.out.println("Gap between Doses: ");
+                gap = scan.nextInt();
+            }
+            vac[i] = new vaccine(vname, num, gap);
+            vac[i].display();
+            i++;
         }
-    }
-    public static void createslots_menu(){
-        int hid,quantity,day,vac_no,num_slots;
-        System.out.println("Enter Hospital ID: ");
-        hid = scan.nextInt();
-        System.out.println("Enter number of Slots to be added: ");
-        num_slots= scan.nextInt();
-        System.out.println("Enter Day number: ");
-        day = scan.nextInt();
-        System.out.println("Enter Quantity: ");
-        quantity= scan.nextInt();
-        System.out.println("Select Vaccine");
-        for(int m =0;m<vac.length;m++){
-            System.out.println(m+". "+vac[m].getName());
+
+        public static void hospitaladd_menu() {
+            String hname;
+            int pincode;
+            System.out.println("Hospital name: ");
+            hname = scan.next();
+            System.out.println("Pincode: ");
+            pincode = scan.nextInt();
+            hos[j] = new hospital(hname, pincode, huniqueid++);
+            hos[j].display();
+            j++;
         }
-        vac_no= scan.nextInt();
-        slots[l] = new slots(hid,num_slots,day,quantity,vac_no);
-        l++;
-        slots[l].display();
+
+        public static void citizenadd_menu() {
+            String cname;
+            long cuniqueid;
+            int age;
+            System.out.println("Citizen name: ");
+            cname = scan.next();
+            System.out.println("age: ");
+            age = scan.nextInt();
+            System.out.println("Unique ID: ");
+            cuniqueid = scan.nextLong();
+            if (age >= 18) {
+                zen[k] = new citizen(cname, age, cuniqueid);
+                zen[k].display();
+                k++;
+            } else {
+                System.out.println("Only above 18 are allowed");
+            }
+        }
+
+        public static void createslots_menu() {
+            int hid, quantity, day, vac_no, num_slots;
+            System.out.println("Enter Hospital ID: ");
+            hid = scan.nextInt();
+            System.out.println("Enter number of Slots to be added: ");
+            num_slots = scan.nextInt();
+            System.out.println("Enter Day number: ");
+            day = scan.nextInt();
+            System.out.println("Enter Quantity: ");
+            quantity = scan.nextInt();
+            System.out.println("Select Vaccine");
+            for (int m = 0; m < i; m++) {
+                System.out.println(m + ". " + vac[m].getName());
+            }
+            vac_no = scan.nextInt();
+            slots[l] = new slots(hid, num_slots, day, quantity, vac_no);
+            slots[l].display();
+            l++;
+
+        }
     }
 
 
@@ -204,19 +212,19 @@ public class Main {
         while (true) {
 
             Scanner scan = new Scanner(System.in);
-            display_menu();
+            Menu.display_menu();
             index = scan.nextInt();
             if (index==1){
-                    vaccineadd_menu();
+                Menu.vaccineadd_menu();
             }
             else if(index==2){
-                hospitaladd_menu();
+                Menu.hospitaladd_menu();
             }
             else if(index==3){
-                citizenadd_menu();
+                Menu.citizenadd_menu();
             }
             else if(index==4){
-                createslots_menu();
+                Menu.createslots_menu();
             }
             else{
                 break;
