@@ -48,17 +48,24 @@ public class Main {
             return pincode;
         }
 
+        public int getUniqueid() {
+            return uniqueid;
+        }
+
         public void display(){
             System.out.println("Hospital Name: "+name+", Pincode: "+pincode+", Unique ID: "+uniqueid);
         }
+
     }
     public static class  citizen {
         private String name;
         private int age;
         private long uniqueid;
+        private String status;
 
-        public citizen(String name, int age, long uniqueid) {
+        public citizen(String name, int age, long uniqueid,String status) {
             this.name = name;
+            this.status = status;
             this.age = age;
             this.uniqueid = uniqueid;
         }
@@ -80,20 +87,30 @@ public class Main {
     }
     public static class  slots {
         private int hid;
-        private int num_slots;
+        private int slot_num;
         private int day;
         private int quantity;
         private int vac_no;
-        public slots(int hid, int num_slots,int day,int quantity,int vac_no){
+        private String vac_name;
+        public slots(int hid, int slot_num,int day,int quantity,int vac_no,String vac_name){
             this.hid = hid;
-            this.num_slots = num_slots;
+            this.slot_num = slot_num;
             this.day = day ;
             this.quantity=quantity;
             this.vac_no=vac_no;
+            this.vac_name=vac_name;
         }
 
         public int getHid() {
             return hid;
+        }
+
+        public String getVac_name() {
+            return vac_name;
+        }
+
+        public int getSlot_num() {
+            return slot_num;
         }
 
         public int getDay() {
@@ -104,6 +121,10 @@ public class Main {
             return quantity;
         }
 
+        public int getVac_no() {
+            return vac_no;
+        }
+
         public void display(){
             System.out.println("Slot added by hospital "+hid+" for Day "+day+", Available quantity:"+quantity+" of Vaccine "+Menu.vac[vac_no].getName());
         }
@@ -111,7 +132,7 @@ public class Main {
 
             for(int i = 0;i<Menu.l;i++){
                 if(Menu.slots[i].getHid()==Hospid){
-                    System.out.println("Day: "+Menu.slots[i].getDay()+" Vaccine: "+Menu.vac[i].getName()+" Available Qty: "+Menu.slots[i].getQuantity());
+                    System.out.println("Day: "+Menu.slots[i].getDay()+" Vaccine: "+Menu.slots[i].getVac_name()+" Available Qty: "+Menu.slots[i].getQuantity());
                 }
             }
         }
@@ -174,7 +195,7 @@ public class Main {
             System.out.println("Unique ID: ");
             cuniqueid = scan.nextLong();
             if (age >= 18) {
-                zen[k] = new citizen(cname, age, cuniqueid);
+                zen[k] = new citizen(cname, age, cuniqueid,"REGISTERED");
                 zen[k].display();
                 k++;
             } else {
@@ -183,23 +204,72 @@ public class Main {
         }
 
         public static void createslots_menu() {
-            int hid, quantity, day, vac_no, num_slots;
+            int hid, quantity, day, vac_no, num_slots,temp=0;
             System.out.println("Enter Hospital ID: ");
             hid = scan.nextInt();
             System.out.println("Enter number of Slots to be added: ");
             num_slots = scan.nextInt();
-            System.out.println("Enter Day number: ");
-            day = scan.nextInt();
-            System.out.println("Enter Quantity: ");
-            quantity = scan.nextInt();
-            System.out.println("Select Vaccine");
-            for (int m = 0; m < i; m++) {
-                System.out.println(m + ". " + vac[m].getName());
+            while (num_slots != 0) {
+                System.out.println("Enter Day number: ");
+                day = scan.nextInt();
+                System.out.println("Enter Quantity: ");
+                quantity = scan.nextInt();
+                System.out.println("Select Vaccine");
+                for (int m = 0; m < i; m++) {
+                    System.out.println(m + ". " + vac[m].getName());
+                }
+                vac_no = scan.nextInt();
+                slots[l] = new slots(hid, temp, day, quantity, vac_no,vac[vac_no].getName());
+                slots[l].display();
+                l++;
+                temp++;
+                num_slots--;
+
             }
-            vac_no = scan.nextInt();
-            slots[l] = new slots(hid, num_slots, day, quantity, vac_no);
-            slots[l].display();
-            l++;
+        }
+        public static void bookaslot(){
+            long temp;
+            int temp1,temp2,hopid;
+            int pincode;
+            System.out.println("Enter patient Unique ID: ");
+            temp = scan.nextLong();
+            System.out.println("1. Search by area\n" +
+                    "2. Search by Vaccine\n" +
+                    "3. Exit\n" +
+                    "Enter option: ");
+            temp1 = scan.nextInt();
+            if (temp1==1){
+                System.out.println("Enter PinCode: ");
+                pincode = scan.nextInt();
+                for(int p=0;p<Menu.j;p++){
+                    if(pincode==Menu.hos[p].getPincode()){
+                        System.out.println(Menu.hos[p].getUniqueid()+" "+Menu.hos[p].getName());
+                        }
+                    }
+            }
+            if(temp1==2){
+                for (int m = 0; m < i; m++) {
+                    System.out.println(m + ". " + vac[m].getName());
+                }
+                temp2 = scan.nextInt();
+                for(int p=0;p<l;p++){
+                    if(temp2==Menu.slots[p].getVac_no()){
+                        for(int o=0;o<j;o++){
+                            if(Menu.slots[p].getHid()==Menu.hos[o].getUniqueid()){
+                                System.out.println(Menu.hos[o].getUniqueid()+" "+Menu.hos[o].getName());
+                            }
+                        }
+                    }
+                }
+
+            }
+            System.out.println("Enter hospital id: ");
+            hopid = scan.nextInt();
+            for(int p=0;p<l;p++){
+                if(hopid==Menu.slots[p].getHid()){
+                    System.out.println(Menu.slots[p].getSlot_num()+"-> Day: "+Menu.slots[p].getDay()+" Available Qty:"+Menu.slots[p].getQuantity()+" Vaccine:"+Menu.slots[p].getVac_name());
+                }
+            }
 
         }
     }
@@ -222,6 +292,9 @@ public class Main {
             }
             else if(index==3){
                 Menu.citizenadd_menu();
+            }
+            else if(index==5){
+                Menu.bookaslot();
             }
             else if(index==4){
                 Menu.createslots_menu();
