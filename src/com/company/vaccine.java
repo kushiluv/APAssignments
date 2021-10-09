@@ -5,9 +5,10 @@ public class vaccine {
     private int doses_num;
     private int doses_gap;
 
-    public vaccine(String name, int doses_num){
+    public vaccine(String name, int doses_num,int doses_gap){
         this.name = name;
         this.doses_num = doses_num;
+        this.doses_gap = doses_gap;
     }
     public String getName() {
         return name;
@@ -15,8 +16,8 @@ public class vaccine {
     public int getDoses_num() {
         return doses_num;
     }
-    public void setDoses_gap(int doses_gap){
-        this.doses_gap=doses_gap;
-
+    public void display(){
+        System.out.println("Vaccine Name: "+name+", Number of Doses: "+doses_num+", Gap Between Doses: "+doses_gap);
     }
+
 }

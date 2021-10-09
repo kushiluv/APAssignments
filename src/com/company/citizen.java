@@ -3,9 +3,9 @@ package com.company;
 public class citizen {
     private String name;
     private int age;
-    private int uniqueid;
+    private long uniqueid;
 
-    public citizen(String name, int age, int uniqueid) {
+    public citizen(String name, int age, long uniqueid) {
         this.name = name;
         this.age = age;
         this.uniqueid = uniqueid;
@@ -19,8 +19,11 @@ public class citizen {
         return age;
     }
 
-    public int getUniqueid() {
+    public long getUniqueid() {
         return uniqueid;
+    }
+    public void display(){
+        System.out.println("Citizen Name: "+name+", Age: "+age+", Unique ID: "+uniqueid);
     }
 }
 
