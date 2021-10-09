@@ -4,6 +4,7 @@ package com.company;
 import java.util.Scanner;
 
 public class Main {
+    public static final Scanner scan = new Scanner(System.in);
 
     public static class vaccine {
         private String name;
@@ -106,11 +107,11 @@ public class Main {
         public void display(){
             System.out.println("Slot added by hospital "+hid+" for Day "+day+", Available quantity:"+quantity+" of Vaccine "+Menu.vac[vac_no].getName());
         }
-        public void hospital_display(int Hospid){
+        public static void hospital_display(int Hospid){
 
             for(int i = 0;i<Menu.l;i++){
                 if(Menu.slots[i].getHid()==Hospid){
-                    System.out.println("Day: "+Menu.slots[i].getDay()+" Vaccine: "+Menu.vac[i].getName()+"Available Qty: "+Menu.slots[i].getQuantity());
+                    System.out.println("Day: "+Menu.slots[i].getDay()+" Vaccine: "+Menu.vac[i].getName()+" Available Qty: "+Menu.slots[i].getQuantity());
                 }
             }
         }
@@ -121,7 +122,7 @@ public class Main {
         static hospital[] hos = new hospital[1000];
         static slots[] slots = new slots[1000];
         static int i = 0, j = 0, k = 0, l = 0, huniqueid = 100001;
-        public static final Scanner scan = new Scanner(System.in);
+
 
 
         public static void display_menu() {
@@ -206,12 +207,11 @@ public class Main {
 
 
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         int index;
 
         while (true) {
 
-            Scanner scan = new Scanner(System.in);
             Menu.display_menu();
             index = scan.nextInt();
             if (index==1){
@@ -225,6 +225,12 @@ public class Main {
             }
             else if(index==4){
                 Menu.createslots_menu();
+            }
+            else if(index==6){
+                int temp;
+                System.out.println("Enter Hospital Id:");
+                temp = scan.nextInt();
+                slots.hospital_display(temp);
             }
             else{
                 break;
