@@ -283,7 +283,8 @@ public class Main {
 
         public static void bookaslot() {
             long temp;
-            int temp1, temp2, temp3, hopid,duedate;
+            int temp1, temp3, hopid,duedate;
+            String temp2;
             int pincode;
             int cday = -1;
             String vname = "doesntexist";
@@ -304,18 +305,16 @@ public class Main {
                 }
             }
             if (temp1 == 2) {
-                for (int m = 0; m < i; m++) {
-                    System.out.println(m + ". " + vac[m].getName());
-                }
-                temp2 = scan.nextInt();
-                for (int p = 0; p < l; p++) {
-                    if (temp2 == Menu.slots[p].getVac_no()) {
+                System.out.println("Enter vaccine name:");
+                temp2 = scan.next();
+                for (int p = 0; p < k; p++) {
                         for (int o = 0; o < j; o++) {
-                            if (Menu.slots[p].getHid() == Menu.hos[o].getUniqueid()) {
-                                System.out.println(Menu.hos[o].getUniqueid() + " " + Menu.hos[o].getName());
+                            if (Menu.slots[o].getVac_name().equals(temp2)&&slots[o].getHid()==hos[p].getUniqueid()) {
+                                System.out.println(Menu.hos[p].getUniqueid() + " " + Menu.hos[p].getName());
+                                break;
                             }
                         }
-                    }
+
                 }
 
             }
@@ -446,18 +445,10 @@ public class Main {
             else if(index==7){
                 Menu.checkstatus();
             }
-            else{
+            else if(index==8){
                 break;
             }
 
-//            vaccine[] vac=new vaccine[100];
-//            vac[0] = new vaccine("voc", 1);
-//            System.out.println(vac[0].getName());
-
-
-
-
-            // write your code here
         }
     }
 }
