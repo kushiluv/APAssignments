@@ -212,7 +212,7 @@ public class Main {
 
 
         public static void display_menu() {
-            System.out.println("CoWin Portal initialized....\n---------------------------------\n1. Add Vaccine\n2. Register Hospital\n3. Register Citizen\n" +
+            System.out.println("---------------------------------\n1. Add Vaccine\n2. Register Hospital\n3. Register Citizen\n" +
                     "4. Add Slot for Vaccination\n" +
                     "5. Book Slot for Vaccination\n" +
                     "6. List all slots for a hospital\n" +
@@ -531,8 +531,9 @@ public class Main {
 
     public static void main (String[] args) {
         int index;
-
+        System.out.println("CoWin Portal initialized....");
         while (true) {
+
 
             Menu.display_menu();
             index = scan.nextInt();
