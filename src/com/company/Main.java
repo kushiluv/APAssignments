@@ -259,6 +259,15 @@ public class Main {
             age = scan.nextInt();
             System.out.println("Unique ID: ");
             cuniqueid = scan.nextLong();
+
+            for(int p=0;p<k;p++){
+                {
+                    if(zen[p].getUniqueid()==cuniqueid) {
+                        System.out.println("ID not unique: " + zen[p].getUniqueid());
+                        return;
+                    }
+                }
+            }
             if (age >= 18) {
                 zen[k] = new citizen(cname, age, cuniqueid, "REGISTERED");
                 zen[k].display();
@@ -333,13 +342,19 @@ public class Main {
                     "3. Exit\n" +
                     "Enter option: ");
             temp1 = scan.nextInt();
+            int flag2=0;
             if (temp1 == 1) {
                 System.out.println("Enter PinCode: ");
                 pincode = scan.nextInt();
                 for (int p = 0; p < Menu.j; p++) {
                     if (pincode == Menu.hos[p].getPincode()) {
+                        flag2=1;
                         System.out.println(Menu.hos[p].getUniqueid() + " " + Menu.hos[p].getName());
                     }
+                }
+                if(flag2==0){
+                    System.out.println("No hospitals in this pincode");
+                    return;
                 }
                 System.out.println("Enter hospital id: ");
                 hopid = scan.nextInt();
