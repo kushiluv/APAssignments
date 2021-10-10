@@ -1,6 +1,5 @@
 package com.company;
 
-
 import java.util.Scanner;
 
 public class Main {
@@ -24,6 +23,10 @@ public class Main {
 
             return doses_num;
         }
+        public int getDoses_gap() {
+
+            return doses_gap;
+        }
         public void display(){
             System.out.println("Vaccine Name: "+name+", Number of Doses: "+doses_num+", Gap Between Doses: "+doses_gap);
         }
@@ -41,14 +44,17 @@ public class Main {
         }
 
         public String getName() {
+
             return name;
         }
 
         public int getPincode() {
+
             return pincode;
         }
 
         public int getUniqueid() {
+
             return uniqueid;
         }
 
@@ -62,6 +68,11 @@ public class Main {
         private int age;
         private long uniqueid;
         private String status;
+        private String vac_name;
+        private int gap;
+        private int dayoflastvaccine;
+        private int doses_no=0;
+        private int doses_total;
 
         public citizen(String name, int age, long uniqueid,String status) {
             this.name = name;
@@ -69,19 +80,57 @@ public class Main {
             this.age = age;
             this.uniqueid = uniqueid;
         }
+        public void setStatus(String status){
+            this.status = status;
+        }
+        public int getDayoflastvaccine(){
+            return dayoflastvaccine;
+        }
+        public String getVac_name(){
+            return vac_name;
+        }
+        public int getGap(){
+            return gap;
+        }
+        public String getStatus(){
+            return this.status;
+        }
+        public void setVac_name(String vac_name){
+            this.vac_name = vac_name;
+        }
+        public void setGap(int gap){
+            this.gap = gap;
+        }
+        public void setDoses_total(int doses_total){
+            this.doses_total = doses_total;
+        }
+        public void increasedoses(){
+            this.doses_no+=1;
+        }
+        public void setDayoflastvaccine(int dayoflastvaccine){
+            this.dayoflastvaccine = dayoflastvaccine;
+        }
 
         public String getName() {
+
             return name;
         }
 
         public int getAge() {
+
             return age;
+        }
+        public int getDoses_no() {
+
+            return doses_no;
         }
 
         public long getUniqueid() {
+
             return uniqueid;
         }
         public void display(){
+
             System.out.println("Citizen Name: "+name+", Age: "+age+", Unique ID: "+uniqueid);
         }
     }
@@ -125,6 +174,10 @@ public class Main {
             return vac_no;
         }
 
+        public void DecreaseQuantity(){
+            quantity=quantity-1;
+        }
+
         public void display(){
             System.out.println("Slot added by hospital "+hid+" for Day "+day+", Available quantity:"+quantity+" of Vaccine "+Menu.vac[vac_no].getName());
         }
@@ -138,12 +191,11 @@ public class Main {
         }
     }
     public class Menu {
-        static vaccine[] vac = new vaccine[1000];
-        static citizen[] zen = new citizen[1000];
-        static hospital[] hos = new hospital[1000];
-        static slots[] slots = new slots[1000];
+        static vaccine[] vac = new vaccine[10000];
+        static citizen[] zen = new citizen[10000];
+        static hospital[] hos = new hospital[10000];
+        static slots[] slots = new slots[10000];
         static int i = 0, j = 0, k = 0, l = 0, huniqueid = 100001;
-
 
 
         public static void display_menu() {
@@ -195,7 +247,7 @@ public class Main {
             System.out.println("Unique ID: ");
             cuniqueid = scan.nextLong();
             if (age >= 18) {
-                zen[k] = new citizen(cname, age, cuniqueid,"REGISTERED");
+                zen[k] = new citizen(cname, age, cuniqueid, "REGISTERED");
                 zen[k].display();
                 k++;
             } else {
@@ -204,7 +256,8 @@ public class Main {
         }
 
         public static void createslots_menu() {
-            int hid, quantity, day, vac_no, num_slots,temp=0;
+            int hid, quantity, day, vac_no, num_slots, temp = 0;
+            String vname;
             System.out.println("Enter Hospital ID: ");
             hid = scan.nextInt();
             System.out.println("Enter number of Slots to be added: ");
@@ -219,7 +272,7 @@ public class Main {
                     System.out.println(m + ". " + vac[m].getName());
                 }
                 vac_no = scan.nextInt();
-                slots[l] = new slots(hid, temp, day, quantity, vac_no,vac[vac_no].getName());
+                slots[l] = new slots(hid, temp, day, quantity, vac_no, vac[vac_no].getName());
                 slots[l].display();
                 l++;
                 temp++;
@@ -227,10 +280,13 @@ public class Main {
 
             }
         }
-        public static void bookaslot(){
+
+        public static void bookaslot() {
             long temp;
-            int temp1,temp2,hopid;
+            int temp1, temp2, temp3, hopid,duedate;
             int pincode;
+            int cday = -1;
+            String vname = "doesntexist";
             System.out.println("Enter patient Unique ID: ");
             temp = scan.nextLong();
             System.out.println("1. Search by area\n" +
@@ -238,25 +294,25 @@ public class Main {
                     "3. Exit\n" +
                     "Enter option: ");
             temp1 = scan.nextInt();
-            if (temp1==1){
+            if (temp1 == 1) {
                 System.out.println("Enter PinCode: ");
                 pincode = scan.nextInt();
-                for(int p=0;p<Menu.j;p++){
-                    if(pincode==Menu.hos[p].getPincode()){
-                        System.out.println(Menu.hos[p].getUniqueid()+" "+Menu.hos[p].getName());
-                        }
+                for (int p = 0; p < Menu.j; p++) {
+                    if (pincode == Menu.hos[p].getPincode()) {
+                        System.out.println(Menu.hos[p].getUniqueid() + " " + Menu.hos[p].getName());
                     }
+                }
             }
-            if(temp1==2){
+            if (temp1 == 2) {
                 for (int m = 0; m < i; m++) {
                     System.out.println(m + ". " + vac[m].getName());
                 }
                 temp2 = scan.nextInt();
-                for(int p=0;p<l;p++){
-                    if(temp2==Menu.slots[p].getVac_no()){
-                        for(int o=0;o<j;o++){
-                            if(Menu.slots[p].getHid()==Menu.hos[o].getUniqueid()){
-                                System.out.println(Menu.hos[o].getUniqueid()+" "+Menu.hos[o].getName());
+                for (int p = 0; p < l; p++) {
+                    if (temp2 == Menu.slots[p].getVac_no()) {
+                        for (int o = 0; o < j; o++) {
+                            if (Menu.slots[p].getHid() == Menu.hos[o].getUniqueid()) {
+                                System.out.println(Menu.hos[o].getUniqueid() + " " + Menu.hos[o].getName());
                             }
                         }
                     }
@@ -265,17 +321,99 @@ public class Main {
             }
             System.out.println("Enter hospital id: ");
             hopid = scan.nextInt();
-            for(int p=0;p<l;p++){
-                if(hopid==Menu.slots[p].getHid()){
-                    System.out.println(Menu.slots[p].getSlot_num()+"-> Day: "+Menu.slots[p].getDay()+" Available Qty:"+Menu.slots[p].getQuantity()+" Vaccine:"+Menu.slots[p].getVac_name());
+            for (int p = 0; p < l; p++) {
+                if (hopid == Menu.slots[p].getHid()) {
+                    System.out.println(Menu.slots[p].getSlot_num() + "-> Day: " + Menu.slots[p].getDay() + " Available Qty:" + Menu.slots[p].getQuantity() + " Vaccine:" + Menu.slots[p].getVac_name());
+                }
+            }
+            System.out.println("Choose Slot");
+            temp3 = scan.nextInt();
+            for (int p = 0; p < l; p++) {
+                if (hopid == Menu.slots[p].getHid() && temp3 == Menu.slots[p].getSlot_num()) {
+                    Menu.slots[p].DecreaseQuantity();
+                    vname = Menu.slots[p].getVac_name();
+                    cday = Menu.slots[p].getDay();
+                }
+            }
+
+            for (int p = 0; p < k; p++) {
+                if (temp == Menu.zen[p].getUniqueid()) {
+                    if (zen[p].getStatus().equals("REGISTERED")) {
+                        zen[p].setVac_name(vname);
+                        for (int o = 0; o < i; o++) {
+                            if (vname.equals(vac[o].getName())) {
+                                zen[p].setGap(vac[o].getDoses_gap());
+                                zen[p].setDoses_total(vac[o].getDoses_num());
+                                zen[p].setVac_name(vname);
+                                zen[p].setDayoflastvaccine(cday);
+                                zen[p].increasedoses();
+                                System.out.println(zen[p].getName() + " vaccinated with " + vname);
+                                if (vac[o].getDoses_num() == 1) {
+                                    zen[p].setStatus("FULLY VACCINATED");
+                                } else {
+                                    zen[p].setStatus("PARTIALLY VACCINATED");
+                                }
+                            }
+                        }
+                    }
+                    else if (zen[p].getStatus().equals("PARTIALLY VACCINATED")) {
+                        if(!zen[p].getVac_name().equals(vname)){
+                            System.out.println("vaccine needed: "+zen[p].getVac_name());
+                            System.out.println("Vaccine selected"+ vname);
+                            System.out.println("vaccine cant be mixed");
+                            break;
+                        }
+                        duedate = zen[p].getDayoflastvaccine()+zen[p].getGap();
+                        if(cday<duedate){
+                            System.out.println("cday:"+cday);
+                            System.out.println("due: "+ duedate);
+                            break;
+                        }
+                        zen[p].setDayoflastvaccine(cday);
+                        zen[p].increasedoses();
+
+                        if(zen[p].doses_no==zen[p].doses_total){
+                            zen[p].setStatus("FULLY VACCINATED");
+                        }
+
+                        System.out.println(zen[p].getName() + " vaccinated with " + vname);
+
+
+                    }
+                    else{
+                        System.out.println("already FULLY VACCINATED");
+                    }
+
+                }
+
+            }
+        }
+        public static void checkstatus(){
+            long temp;
+            System.out.println("Enter unique ID");
+            temp = scan.nextLong();
+            for(int j = 0; j<k;j++){
+                if(temp == zen[j].getUniqueid()){
+                    if(zen[j].getStatus().equals("REGISTERED")){
+                        System.out.println("REGISTERED");
+                    }
+                    else if(zen[j].getStatus().equals("PARTIALLY VACCINATED")){
+                        System.out.println("PARTIALLY VACCINATED");
+                        System.out.println("Vaccine Given: "+zen[j].getVac_name());
+                        System.out.println("Number of doses given:"+zen[j].getDoses_no());
+                        int tempd = zen[j].getDayoflastvaccine()+zen[j].getGap();
+                        System.out.println("Next dose due date"+tempd);
+                    }
+                    else{
+                        System.out.println("FULLY VACCINATED");
+                        System.out.println("Vaccine Given: "+zen[j].getVac_name());
+                        System.out.println("Number of doses given:"+zen[j].getDoses_no());
+                    }
                 }
             }
 
         }
     }
-
-
-
 
     public static void main (String[] args) {
         int index;
@@ -304,6 +442,9 @@ public class Main {
                 System.out.println("Enter Hospital Id:");
                 temp = scan.nextInt();
                 slots.hospital_display(temp);
+            }
+            else if(index==7){
+                Menu.checkstatus();
             }
             else{
                 break;
