@@ -36,6 +36,7 @@ public class instructor {
             materials.add(rial);
         } else if (temp == 2) {
             System.out.println("Enter topic of video");
+            scan.nextLine();
             String topic = scan.nextLine();
             System.out.println("Enter filename of video");
             String filename = scan.nextLine();
@@ -114,7 +115,7 @@ public class instructor {
                 System.out.println("Max marks : " + assignments.get(i).getMarks());
                 System.out.println("Marks scored: " );
                 assignments.get(i).setMarksobtained(scan.nextInt());
-
+                assignments.get(i).setInstructor_id(id);
                 assignments.get(i).setgradedtrue();
             }
         }

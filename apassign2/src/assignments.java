@@ -38,7 +38,7 @@ public class assignments {
     public String getSolution(){
         return solution;
     }
-    public void setInstructor_id_id(int iid){
+    public void setInstructor_id(int iid){
         instructor_id=iid;
     }
     public int getId(){
@@ -69,6 +69,9 @@ public class assignments {
     }
     public void setMarksobtained(int marksobtained){
         this.marksobtained = marksobtained;
+    }
+    public int getMarksobtained(){
+        return this.marksobtained ;
     }
     public void setclosedtrue(){
         closed = true;

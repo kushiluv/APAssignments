@@ -17,12 +17,12 @@ public class material {
     public material(String topic, String filename) {
         this.topic = topic;
         this.filename = filename;
-        this.topic = "video";
+        this.type = "video";
         date = new java.util.Date();
     }
 
     public void display() {
-        if (this.type.equals("slide")) {
+        if (type.equals("slide")) {
             System.out.println("Title: " + topic);
             for (int i = 1; i <= content.size(); i++) {
                 System.out.println("Slide "+i+": " + content.get(i-1));
@@ -33,7 +33,7 @@ public class material {
 
         }
         else if(this.type.equals("video")){
-            System.out.println("Title: " + topic);
+            System.out.println("\nTitle: " + topic);
             System.out.println("Video file: "+filename);
             System.out.println("Date of upload: " + date);
         }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class menu {
     public static final Scanner scan = new Scanner(System.in);
     static int instructid;
+    static int stuid;
     static ArrayList<instructor> instructors = new ArrayList<instructor>();
     static ArrayList<student> students = new ArrayList<student>();
 
@@ -19,6 +20,21 @@ public class menu {
         System.out.println("Choose id: ");
         instructid = scan.nextInt();
         instructors.get(instructid).display();
+    }
+    public static void add_students(){
+        student s0 = new student(0);
+        students.add(s0);
+        student s1 = new student(1);
+        students.add(s1);
+        student s2 = new student(2);
+        students.add(s2);
+        System.out.println("Students:");
+        for(int i = 0 ;i<students.size();i++){
+            System.out.println(i+" - S"+i);
+        }
+        System.out.println("Choose id: ");
+        stuid = scan.nextInt();
+        students.get(stuid).display();
     }
 
     public static void display_menu(){
@@ -76,17 +92,43 @@ public class menu {
                         instructors.get(instructid).addmaterial();
                     }
                     else if(instructormenu==2){
+                        instructors.get(instructid).addassignments();
+                    }
+                    else if(instructormenu==3){
                         instructors.get(instructid).viewmaterials();
+                    }
+                    else if(instructormenu==4){
+                        instructors.get(instructid).viewassignments();
+                    }
+                    else if(instructormenu==5){
+                        instructors.get(instructid).gradeassignments();
+                    }
+                    else if(instructormenu==6){
+                        instructors.get(instructid).closeassignment();
                     }
                 }
             }
             else if(mainmenu==2){
+                menu.add_students();
                 while(true){
                     menu.student_menu();
                     studentmenu = scan.nextInt();
                     if(studentmenu==7){
                         break;
                     }
+                    else if(studentmenu==1){
+                        instructors.get(0).viewmaterials();
+                    }
+                    else if(studentmenu==2){
+                        instructors.get(0).viewassignments();
+                    }
+                    else if(studentmenu==3){
+                        students.get(stuid).submit_assignments();
+                    }
+                    else if(studentmenu==4){
+                        students.get(stuid).view_grades();
+                    }
+
                 }
             }
             else{

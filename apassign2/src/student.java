@@ -7,6 +7,9 @@ public class student {
     public student(int id) {
         this.id = id;
     }
+    public void display() {
+        System.out.println("Welcome S" + id);
+    }
 
     public void submit_assignments(){
         System.out.println("Pending Assignments");
@@ -45,6 +48,23 @@ public class student {
             if(assignments.get(i).getId()==tempid){
                 assignments.get(i).setSubmittedtrue();
                 assignments.get(i).setStudent_id(id);
+            }
+        }
+
+    }
+    public void view_grades(){
+        System.out.println("Ungraded submissions:");
+        for(int i = 0;i< assignments.size();i++){
+            if(assignments.get(i).getStudent_id()==id && !assignments.get(i).getgraded()){
+                System.out.println("submission: "+assignments.get(i).getSolution()+"\n-----------------");
+            }
+        }
+        System.out.println("Graded submissions:");
+        for(int i = 0;i< assignments.size();i++){
+            if(assignments.get(i).getStudent_id()==id && assignments.get(i).getgraded()){
+                System.out.println("submission: "+assignments.get(i).getSolution()+"\n-----------------");
+                System.out.println("Marks scored: "+assignments.get(i).getMarksobtained());
+                System.out.println("Graded by: I"+assignments.get(i).getInstructor_id());
             }
         }
 
