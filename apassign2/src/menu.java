@@ -5,6 +5,7 @@ public class menu {
     public static final Scanner scan = new Scanner(System.in);
     static int instructid;
     static ArrayList<instructor> instructors = new ArrayList<instructor>();
+    static ArrayList<student> students = new ArrayList<student>();
 
     public static void add_instructors(){
         instructor i0 = new instructor(0);

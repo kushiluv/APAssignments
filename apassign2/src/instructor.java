@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class instructor {
     public static final Scanner scan = new Scanner(System.in);
     private int id;
-    private ArrayList<material> materials = new ArrayList<material>();
-    private ArrayList<assignments> assignments = new ArrayList<assignments>();
+    private static ArrayList<material> materials = new ArrayList<material>();
+    private static ArrayList<assignments> assignments = new ArrayList<assignments>();
 
     public instructor(int id) {
         this.id = id;
@@ -47,9 +47,10 @@ public class instructor {
         }
     }
 
-    public ArrayList<material> getMaterials() {
+    public static ArrayList<material> getMaterials() {
         return materials;
     }
+
 
     public void viewmaterials() {
         for (int i = 0; i < materials.size(); i++) {
@@ -82,14 +83,61 @@ public class instructor {
     }
 
     public void viewassignments() {
-        System.out.println("Pending Assignments");
         for (int i = 0; i < assignments.size(); i++) {
             System.out.println("ID: " + assignments.get(i).getId() + " Assignment: " + assignments.get(i).getQuestion() + " Max Marks: " + assignments.get(i).getMarks() +
                     "\n----------------");
         }
     }
-    public ArrayList<assignments> getAssignments() {
+
+    public static ArrayList<assignments> getAssignments() {
         return assignments;
     }
 
+    public void gradeassignments() {
+        System.out.print("List of assignments");
+        viewassignments();
+        System.out.println("Enter id of assignment to view submissions: ");
+        int temp = scan.nextInt();
+        int count = 0;
+        System.out.println("Choose ID from these ungraded submissions");
+        for (int i = 0; i < assignments.size(); i++) {
+            if (assignments.get(i).getsubmitted()) {
+                System.out.println(count + ". S" + assignments.get(i).getStudent_id());
+                count++;
+            }
+        }
+        int sid = scan.nextInt();
+        System.out.println("Submissions: \n");
+        for (int i = 0; i < assignments.size(); i++) {
+            if (assignments.get(i).getsubmitted() && assignments.get(i).getStudent_id() == sid) {
+                System.out.println("Submission: " + assignments.get(i).getSolution() + "\n------------");
+                System.out.println("Max marks : " + assignments.get(i).getMarks());
+                System.out.println("Marks scored: " );
+                assignments.get(i).setMarksobtained(scan.nextInt());
+
+                assignments.get(i).setgradedtrue();
+            }
+        }
+
+
+    }
+
+    public void closeassignment() {
+        System.out.println("List of open asssignments");
+        for (int i = 0; i < assignments.size(); i++) {
+            if (!assignments.get(i).getclosed()) {
+                System.out.println("ID: " + assignments.get(i).getId() + " Assignment: " + assignments.get(i).getQuestion() + " Max Marks: " + assignments.get(i).getMarks() +
+                        "\n----------------");
+            }
+        }
+        int closeid;
+        System.out.println("Enter id of assignment to close: ");
+        closeid = scan.nextInt();
+        for (int i = 0; i < assignments.size(); i++) {
+            if (assignments.get(i).getId() == closeid) {
+                assignments.get(i).setclosedtrue();
+            }
+
+        }
+    }
 }
