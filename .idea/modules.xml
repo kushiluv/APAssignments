@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Apassignments.iml" filepath="$PROJECT_DIR$/Apassignments.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apassign2/apassign2.iml" filepath="$PROJECT_DIR$/apassign2/apassign2.iml" />
     </modules>
   </component>
 </project>
