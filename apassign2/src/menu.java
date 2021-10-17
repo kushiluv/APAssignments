@@ -71,6 +71,12 @@ public class menu {
                     if(instructormenu==9){
                         break;
                     }
+                    else if(instructormenu==1){
+                        instructors.get(instructid).addmaterial();
+                    }
+                    else if(instructormenu==2){
+                        instructors.get(instructid).viewmaterials();
+                    }
                 }
             }
             else if(mainmenu==2){
