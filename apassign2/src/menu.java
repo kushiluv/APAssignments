@@ -8,11 +8,12 @@ public class menu {
     static ArrayList<instructor> instructors = new ArrayList<instructor>();
     static ArrayList<student> students = new ArrayList<student>();
 
-    public static void add_instructors(){
+    public static void initialize_instructors(){
         instructor i0 = new instructor(0);
         instructors.add(i0);
         instructor i1 = new instructor(1);
-        instructors.add(i1);
+        instructors.add(i1);}
+    public static void add_instructors(){
         System.out.println("Instructors:");
         for(int i = 0 ;i<instructors.size();i++){
             System.out.println(i+" - I"+i);
@@ -21,13 +22,14 @@ public class menu {
         instructid = scan.nextInt();
         instructors.get(instructid).display();
     }
-    public static void add_students(){
+    public static void initialize_students(){
         student s0 = new student(0);
         students.add(s0);
         student s1 = new student(1);
         students.add(s1);
         student s2 = new student(2);
-        students.add(s2);
+        students.add(s2);}
+    public static void add_students(){
         System.out.println("Students:");
         for(int i = 0 ;i<students.size();i++){
             System.out.println(i+" - S"+i);
@@ -77,6 +79,8 @@ public class menu {
         int mainmenu;
         int instructormenu;
         int studentmenu;
+        menu.initialize_students();
+        menu.initialize_instructors();
         while(true){
             menu.display_menu();
             mainmenu = scan.nextInt();

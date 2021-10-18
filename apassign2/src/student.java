@@ -25,7 +25,7 @@ public class student {
                 if(assignments.get(i).getType().equals("assignment")){
                     System.out.println("Enter filename of assignment:");
                     String file = scan.next();
-                    if(!file.substring(file.length()-4).equals(".zip")){
+                    if(file.length()<4&&!file.substring(file.length()-4).equals(".zip")){
                         System.out.println("file is of unsupported type");
                         return;
                     }
@@ -55,7 +55,7 @@ public class student {
     public void view_grades(){
         System.out.println("Ungraded submissions:");
         for(int i = 0;i< assignments.size();i++){
-            if(assignments.get(i).getStudent_id()==id && !assignments.get(i).getgraded()){
+            if(assignments.get(i).getStudent_id()==id && !assignments.get(i).getgraded()&&assignments.get(i).getSolution()!=null){
                 System.out.println("submission: "+assignments.get(i).getSolution()+"\n-----------------");
             }
         }

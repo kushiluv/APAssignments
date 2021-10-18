@@ -32,7 +32,7 @@ public class instructor {
                 System.out.println("Content of slide " + i + " :");
                 content.add(scan.nextLine());
             }
-            material rial = new material(topic, content);
+            material rial = new material(topic, content,id);
             materials.add(rial);
         } else if (temp == 2) {
             System.out.println("Enter topic of video");
@@ -40,7 +40,7 @@ public class instructor {
             String topic = scan.nextLine();
             System.out.println("Enter filename of video");
             String filename = scan.nextLine();
-            material rial = new material(topic, filename);
+            material rial = new material(topic, filename,id);
             materials.add(rial);
         } else {
             System.out.println("invalid input");
@@ -56,7 +56,7 @@ public class instructor {
     public void viewmaterials() {
         for (int i = 0; i < materials.size(); i++) {
             materials.get(i).display();
-            System.out.println("Uploaded by: I" + id);
+            System.out.println("Uploaded by: I" + materials.get(i).getUploadid());
         }
     }
 
@@ -71,22 +71,27 @@ public class instructor {
             ;
             System.out.println("Enter max marks: ");
             int marks = scan.nextInt();
-            assignments ments = new assignments(question, marks);
+            assignments ments = new assignments(question, marks,id);
             assignments.add(ments);
 
         } else if (temp == 2) {
             System.out.println("Enter quiz question: ");
             scan.nextLine();
             String question = scan.nextLine();
-            assignments ments = new assignments(question);
+            assignments ments = new assignments(question,id);
             assignments.add(ments);
         }
     }
 
     public void viewassignments() {
         for (int i = 0; i < assignments.size(); i++) {
+            if(assignments.get(i).getType().equals("assignment")){
             System.out.println("ID: " + assignments.get(i).getId() + " Assignment: " + assignments.get(i).getQuestion() + " Max Marks: " + assignments.get(i).getMarks() +
-                    "\n----------------");
+                    "\n----------------");}
+            else{
+                System.out.println("ID: " + assignments.get(i).getId() + " Question: " + assignments.get(i).getQuestion() +
+                        "\n----------------");
+            }
         }
     }
 
@@ -102,10 +107,14 @@ public class instructor {
         int count = 0;
         System.out.println("Choose ID from these ungraded submissions");
         for (int i = 0; i < assignments.size(); i++) {
-            if (assignments.get(i).getsubmitted()) {
+            if (assignments.get(i).getsubmitted()&&assignments.get(i).getId()==temp) {
                 System.out.println(count + ". S" + assignments.get(i).getStudent_id());
                 count++;
             }
+        }
+        if(count==0){
+            System.out.println("no submissions found");
+            return;
         }
         int sid = scan.nextInt();
         System.out.println("Submissions: \n");
@@ -125,11 +134,19 @@ public class instructor {
 
     public void closeassignment() {
         System.out.println("List of open asssignments");
+        int flag = 0;
         for (int i = 0; i < assignments.size(); i++) {
-            if (!assignments.get(i).getclosed()) {
+            if(assignments.get(i).getType().equals("assignment")){flag++;
                 System.out.println("ID: " + assignments.get(i).getId() + " Assignment: " + assignments.get(i).getQuestion() + " Max Marks: " + assignments.get(i).getMarks() +
+                        "\n----------------");}
+            else{flag++;
+                System.out.println("ID: " + assignments.get(i).getId() + " Question: " + assignments.get(i).getQuestion() +
                         "\n----------------");
             }
+        }
+        if(flag==0){
+            System.out.println("no assignments found");
+            return;
         }
         int closeid;
         System.out.println("Enter id of assignment to close: ");

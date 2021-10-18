@@ -6,19 +6,25 @@ public class material {
     private String filename;
     private String type;
     private java.util.Date date;
+    private int uploadid;
 
-    public material(String topic, ArrayList<String> content) {
+    public material(String topic, ArrayList<String> content,int uploadid) {
         this.content = content;
         this.topic = topic;
         this.type = "slide";
         date = new java.util.Date();
+        this.uploadid = uploadid;
     }
 
-    public material(String topic, String filename) {
+    public material(String topic, String filename,int uploadid) {
         this.topic = topic;
         this.filename = filename;
         this.type = "video";
         date = new java.util.Date();
+        this.uploadid = uploadid;
+    }
+    public int getUploadid(){
+        return uploadid;
     }
 
     public void display() {

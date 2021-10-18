@@ -11,20 +11,26 @@ public class assignments {
     private int student_id;
     private String type;
     private String solution;
+    private int uploadid;
 
-    public assignments(String question , int marks){
+    public assignments(String question , int marks,int uploadid){
         this.question = question;
         this.marks = marks;
         id = count;
         type = "assignment";
+        this.uploadid = uploadid;
         count++;
     }
-    public assignments(String question){
+    public assignments(String question,int uploadid){
         this.question = question;
         id = count;
         this.marks = 1;
         type = "quiz";
+        this.uploadid = uploadid;
         count++;
+    }
+    public int getUploadid(){
+        return uploadid;
     }
     public int getInstructor_id(){
         return instructor_id;
