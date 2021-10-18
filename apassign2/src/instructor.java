@@ -7,6 +7,7 @@ public class instructor {
     private static ArrayList<material> materials = new ArrayList<material>();
     private static ArrayList<assessment> assessments = new ArrayList<assessment>();
     private static ArrayList<comments> comments = new ArrayList<comments>();
+    private static ArrayList<student> students = menu.students;
     private int assessmentid = 0;
 
     public instructor(int id) {
@@ -52,6 +53,7 @@ public class instructor {
             }
             material rial = new material(topic, filename,id);
             materials.add(rial);
+
         } else {
             System.out.println("invalid input");
             return;
@@ -84,21 +86,29 @@ public class instructor {
             ;
             System.out.println("Enter max marks: ");
             int marks = scan.nextInt();
-            assessments.add(new assignment(question, marks,id,assessmentid));
+            for(int i =0;i<students.size();i++){
+            assessments.add(new assignment(question, marks,id,assessmentid,students.get(i).getId()));}
             assessmentid++;
 
         } else if (temp == 2) {
             System.out.println("Enter quiz question: ");
             scan.nextLine();
             String question = scan.nextLine();
-            assessments.add(new quiz(question,id,assessmentid));
+            for(int i =0;i<students.size();i++){
+            assessments.add(new quiz(question,id,assessmentid,students.get(i).getId()));}
             assessmentid++;
         }
     }
 
     public void viewassessments() {
         for (int i = 0; i < assessments.size(); i++) {
+            if(i!=0) {
+                if (assessments.get(i).getId() == assessments.get(i - 1).getId()) {
+                    continue;
+                }
+            }
             if(assessments.get(i).getType().equals("assignment")){
+
                 System.out.println("ID: " + assessments.get(i).getId() + " Assignment: " + assessments.get(i).getQuestion() + " Max Marks: " + assessments.get(i).getMarks() +
                         "\n----------------");}
             else{
@@ -121,8 +131,8 @@ public class instructor {
         int count = 0;
         System.out.println("Choose ID from these ungraded submissions");
         for (int i = 0; i < assessments.size(); i++) {
-            if (assessments.get(i).getId()==temp) {
-                System.out.println(assessments.get(i).getId() + ". S" + assessments.get(i).getStudent_id());
+            if (assessments.get(i).getId()==temp&&assessments.get(i).getsubmitted()==true) {
+                System.out.println(count + ". S" + assessments.get(i).getStudent_id());
                 count++;
             }
         }
@@ -132,16 +142,18 @@ public class instructor {
         }
         int sid = scan.nextInt();
         System.out.println("Submissions: \n");
-
+        count=0;
         for (int i = 0; i < assessments.size(); i++) {
-            if (assessments.get(i).getId()==sid) {
+            if (assessments.get(i).getId()==temp&&assessments.get(i).getsubmitted()==true) {
+                if(count==sid){
                 System.out.println("Submission: " + assessments.get(i).getSolution() + "\n------------");
                 System.out.println("Max marks : " + assessments.get(i).getMarks());
                 System.out.println("Marks scored: " );
                 assessments.get(i).setMarksobtained(scan.nextInt());
                 assessments.get(i).setInstructor_id(id);
                 assessments.get(i).setgradedtrue();
-                break;
+                break;}
+            count++;
             }
 
         }
@@ -153,6 +165,11 @@ public class instructor {
         System.out.println("List of open asssignments");
         int flag = 0;
         for (int i = 0; i < assessments.size(); i++) {
+            if(i!=0) {
+                if (assessments.get(i).getId() == assessments.get(i - 1).getId()) {
+                    continue;
+                }
+            }
             if(assessments.get(i).getType().equals("assignment")){flag++;
                 System.out.println("ID: " + assessments.get(i).getId() + " Assignment: " + assessments.get(i).getQuestion() + " Max Marks: " + assessments.get(i).getMarks() +
                         "\n----------------");}
@@ -177,8 +194,19 @@ public class instructor {
     }
     public void addcomment(){
         System.out.println("Enter comment: ");
-        scan.nextLine();
         String comment = scan.nextLine();
-        comments.add(new comments(id,comment));
+        comments.add(new comments(id,comment,"instructor"));
+    }
+    public void viewcomment(){
+        for(int i=0;i< comments.size();i++){
+            if(comments.get(i).getType()=="instructor"){
+                System.out.println(comments.get(i).getComment()+" I"+comments.get(i).getId());
+                System.out.println(comments.get(i).getDate()+"\n");
+            }
+            else if(comments.get(i).getType()=="student"){
+                System.out.println(comments.get(i).getComment()+" S"+comments.get(i).getId());
+                System.out.println(comments.get(i).getDate()+"\n");
+            }
+        }
     }
 }

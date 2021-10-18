@@ -7,14 +7,15 @@ public class quiz implements assessment{
     private boolean graded=false;
     private boolean submitted=false;
     private int instructor_id;
-    private int student_id=-1;
+    private int student_id;
     private final int marks = 1;
     private String solution;
     private int uploadid;
-    public quiz(String question,int uploadid,int id){
+    public quiz(String question,int uploadid,int id,int student_id){
         this.question = question;
         this.id = id;
         this.uploadid = uploadid;
+        this.student_id = student_id;
 
     }
     @Override

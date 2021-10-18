@@ -110,6 +110,12 @@ public class menu {
                     else if(instructormenu==6){
                         instructors.get(instructid).closeassignment();
                     }
+                    else if(instructormenu==8){
+                        instructors.get(instructid).addcomment();
+                    }
+                    else if(instructormenu==7){
+                        instructors.get(instructid).viewcomment();
+                    }
                 }
             }
             else if(mainmenu==2){
@@ -131,6 +137,12 @@ public class menu {
                     }
                     else if(studentmenu==4){
                         students.get(stuid).view_grades();
+                    }
+                    else if(studentmenu==6){
+                        students.get(stuid).addcomment();
+                    }
+                    else if(studentmenu==5){
+                        instructors.get(0).viewcomment();
                     }
 
                 }

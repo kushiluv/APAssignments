@@ -4,6 +4,7 @@ public class student {
     public static final Scanner scan = new Scanner(System.in);
     private int id;
     private ArrayList<assessment> assessments = instructor.getAssessments();
+    private ArrayList<comments> comments = instructor.getComments();
     public student(int id) {
         this.id = id;
     }
@@ -11,11 +12,14 @@ public class student {
         System.out.println("Welcome S" + id);
     }
 
+    public int getId(){
+        return id;
+    }
     public void submit_assessments(){
         System.out.println("Pending assessments");
         int flag = 0;
         for(int i = 0 ; i< assessments.size();i++){
-            if(!assessments.get(i).getclosed()&& assessments.get(i).getStudent_id()!=id){
+            if(!assessments.get(i).getclosed() && assessments.get(i).getsubmitted()==false &&assessments.get(i).getStudent_id()==id){
 
                 if(assessments.get(i).getType().equals("assignment")){flag++;
                     System.out.println("ID: " + assessments.get(i).getId() + " Assignment: " + assessments.get(i).getQuestion() + " Max Marks: " + assessments.get(i).getMarks() +
@@ -33,7 +37,7 @@ public class student {
         System.out.println("Enter ID of assessment: ");
         int tempid = scan.nextInt();
         for(int i = 0 ; i<assessments.size();i++){
-            if(tempid==assessments.get(i).getId()){
+            if(tempid==assessments.get(i).getId()&&assessments.get(i).getStudent_id()==id){
                 if(assessments.get(i).getType().equals("assignment")){
                     System.out.println("Enter filename of assignment:");
                     String file = scan.next();
@@ -55,18 +59,19 @@ public class student {
                     scan.nextLine();
                     String ans = scan.nextLine();
                     assessments.get(i).setSolution(ans);
+                    assessments.get(i).setSubmittedtrue();
 
                 }
 
             }
         }
 
-        for(int i = 0 ; i<assessments.size();i++){
-            if(assessments.get(i).getId()==tempid){
-                assessments.get(i).setSubmittedtrue();
-                assessments.get(i).setStudent_id(id);
-            }
-        }
+//        for(int i = 0 ; i<assessments.size();i++){
+//            if(assessments.get(i).getId()==tempid){
+//                assessments.get(i).setSubmittedtrue();
+//                assessments.get(i).setStudent_id(id);
+//            }
+//        }
 
     }
     public void view_grades(){
@@ -79,12 +84,18 @@ public class student {
         System.out.println("Graded submissions:");
         for(int i = 0;i< assessments.size();i++){
             if(assessments.get(i).getStudent_id()==id && assessments.get(i).getgraded()){
-                System.out.println("submission: "+assessments.get(i).getSolution()+"\n-----------------");
+                System.out.println("submission: "+assessments.get(i).getSolution());
                 System.out.println("Marks scored: "+assessments.get(i).getMarksobtained());
-                System.out.println("Graded by: I"+assessments.get(i).getInstructor_id());
+                System.out.println("Graded by: I"+assessments.get(i).getInstructor_id()+"\n-----------------");
             }
         }
 
+    }
+    public void addcomment(){
+        System.out.println("Enter comment: ");
+        scan.nextLine();
+        String comment = scan.nextLine();
+        comments.add(new comments(id,comment,"student"));
     }
 
 }

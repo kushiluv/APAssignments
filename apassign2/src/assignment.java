@@ -7,16 +7,17 @@ public class assignment implements assessment{
     private boolean graded=false;
     private boolean submitted=false;
     private int instructor_id;
-    private int student_id=-1;
+    private int student_id;
     private String solution;
     private int uploadid;
     private String type = "assignment";
 
-    public assignment(String question , int marks,int uploadid,int id){
+    public assignment(String question , int marks,int uploadid,int id,int student_id){
         this.question = question;
         this.marks = marks;
         this.id = id;
         this.uploadid = uploadid;
+        this.student_id = student_id;
     }
     @Override
     public int getUploadid(){
