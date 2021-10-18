@@ -1,92 +1,97 @@
-public class assignments {
-    private static int count = 0;
-    private int id=0;
+public class quiz implements assessment{
+    private int id;
     private String question;
-
+    private String type = "quiz";
     private int marksobtained;
     private boolean closed=false;
     private boolean graded=false;
     private boolean submitted=false;
     private int instructor_id;
-    private int student_id;
-    private String type;
+    private int student_id=-1;
+    private final int marks = 1;
     private String solution;
     private int uploadid;
-    private final int marks;
+    public quiz(String question,int uploadid,int id){
+        this.question = question;
+        this.id = id;
+        this.uploadid = uploadid;
 
-    public assignments(String question , int marks,int uploadid){
-        this.question = question;
-        this.marks = marks;
-        id = count;
-        type = "assignment";
-        this.uploadid = uploadid;
-        count++;
     }
-    public assignments(String question,int uploadid){
-        this.question = question;
-        id = count;
-        this.marks = 1;
-        type = "quiz";
-        this.uploadid = uploadid;
-        count++;
-    }
+    @Override
     public int getUploadid(){
         return uploadid;
     }
+    @Override
     public int getInstructor_id(){
         return instructor_id;
     }
+    @Override
     public void setStudent_id(int sid){
         student_id=sid;
     }
+    @Override
     public void setSolution(String sol){
         solution=sol;
     }
+    @Override
     public String getSolution(){
         return solution;
     }
-    public void setInstructor_id(int iid){
-        instructor_id=iid;
-    }
-    public int getId(){
-        return id;
-    }
-    public int getStudent_id(){
-        return student_id;
-    }
-
+    @Override
     public String getType(){
         return type;
     }
-
+    @Override
+    public void setInstructor_id(int iid){
+        instructor_id=iid;
+    }
+    @Override
+    public int getId(){
+        return id;
+    }
+    @Override
+    public int getStudent_id(){
+        return student_id;
+    }
+    @Override
     public String getQuestion(){
         return question;
     }
-    public int getMarks(){
-        return marks;
-    }
+    @Override
     public boolean getclosed(){
         return closed;
     }
+    @Override
     public boolean getsubmitted(){
         return submitted;
     }
+    @Override
+    public int getMarks(){
+        return marks;
+    }
+    @Override
     public boolean getgraded(){
         return graded;
     }
+    @Override
     public void setMarksobtained(int marksobtained){
         this.marksobtained = marksobtained;
     }
+    @Override
     public int getMarksobtained(){
         return this.marksobtained ;
     }
+    @Override
     public void setclosedtrue(){
         closed = true;
     }
+    @Override
     public void setgradedtrue(){
         graded = true;
     }
+    @Override
     public void setSubmittedtrue(){
         submitted = true;
     }
+
 }

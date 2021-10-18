@@ -102,7 +102,7 @@ public class menu {
                         instructors.get(instructid).viewmaterials();
                     }
                     else if(instructormenu==4){
-                        instructors.get(instructid).viewassignments();
+                        instructors.get(instructid).viewassessments();
                     }
                     else if(instructormenu==5){
                         instructors.get(instructid).gradeassignments();
@@ -124,10 +124,10 @@ public class menu {
                         instructors.get(0).viewmaterials();
                     }
                     else if(studentmenu==2){
-                        instructors.get(0).viewassignments();
+                        instructors.get(0).viewassessments();
                     }
                     else if(studentmenu==3){
-                        students.get(stuid).submit_assignments();
+                        students.get(stuid).submit_assessments();
                     }
                     else if(studentmenu==4){
                         students.get(stuid).view_grades();

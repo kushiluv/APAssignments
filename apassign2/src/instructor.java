@@ -5,7 +5,9 @@ public class instructor {
     public static final Scanner scan = new Scanner(System.in);
     private int id;
     private static ArrayList<material> materials = new ArrayList<material>();
-    private static ArrayList<assignments> assignments = new ArrayList<assignments>();
+    private static ArrayList<assessment> assessments = new ArrayList<assessment>();
+    private static ArrayList<comments> comments = new ArrayList<comments>();
+    private int assessmentid = 0;
 
     public instructor(int id) {
         this.id = id;
@@ -40,6 +42,14 @@ public class instructor {
             String topic = scan.nextLine();
             System.out.println("Enter filename of video");
             String filename = scan.nextLine();
+            if(filename.length()<4){
+                System.out.println("file is of unsupported type");
+                return;
+            }
+            if(!filename.substring(filename.length()-4).equals(".mp4")){
+                System.out.println("file is of unsupported type");
+                return;
+            }
             material rial = new material(topic, filename,id);
             materials.add(rial);
         } else {
@@ -50,6 +60,9 @@ public class instructor {
 
     public static ArrayList<material> getMaterials() {
         return materials;
+    }
+    public static ArrayList<comments> getComments() {
+        return comments;
     }
 
 
@@ -71,44 +84,45 @@ public class instructor {
             ;
             System.out.println("Enter max marks: ");
             int marks = scan.nextInt();
-            assignments ments = new assignments(question, marks,id);
-            assignments.add(ments);
+            assessments.add(new assignment(question, marks,id,assessmentid));
+            assessmentid++;
 
         } else if (temp == 2) {
             System.out.println("Enter quiz question: ");
             scan.nextLine();
             String question = scan.nextLine();
-            assignments ments = new assignments(question,id);
-            assignments.add(ments);
+            assessments.add(new quiz(question,id,assessmentid));
+            assessmentid++;
         }
     }
 
-    public void viewassignments() {
-        for (int i = 0; i < assignments.size(); i++) {
-            if(assignments.get(i).getType().equals("assignment")){
-            System.out.println("ID: " + assignments.get(i).getId() + " Assignment: " + assignments.get(i).getQuestion() + " Max Marks: " + assignments.get(i).getMarks() +
-                    "\n----------------");}
+    public void viewassessments() {
+        for (int i = 0; i < assessments.size(); i++) {
+            if(assessments.get(i).getType().equals("assignment")){
+                System.out.println("ID: " + assessments.get(i).getId() + " Assignment: " + assessments.get(i).getQuestion() + " Max Marks: " + assessments.get(i).getMarks() +
+                        "\n----------------");}
             else{
-                System.out.println("ID: " + assignments.get(i).getId() + " Question: " + assignments.get(i).getQuestion() +
+                System.out.println("ID: " + assessments.get(i).getId() + " Question: " + assessments.get(i).getQuestion() +
                         "\n----------------");
             }
         }
     }
 
-    public static ArrayList<assignments> getAssignments() {
-        return assignments;
+    public static ArrayList<assessment> getAssessments() {
+        return assessments;
     }
 
     public void gradeassignments() {
-        System.out.print("List of assignments");
-        viewassignments();
+        System.out.print("List of assessments");
+        System.out.println("");
+        viewassessments();
         System.out.println("Enter id of assignment to view submissions: ");
         int temp = scan.nextInt();
         int count = 0;
         System.out.println("Choose ID from these ungraded submissions");
-        for (int i = 0; i < assignments.size(); i++) {
-            if (assignments.get(i).getsubmitted()&&assignments.get(i).getId()==temp) {
-                System.out.println(count + ". S" + assignments.get(i).getStudent_id());
+        for (int i = 0; i < assessments.size(); i++) {
+            if (assessments.get(i).getId()==temp) {
+                System.out.println(assessments.get(i).getId() + ". S" + assessments.get(i).getStudent_id());
                 count++;
             }
         }
@@ -118,15 +132,18 @@ public class instructor {
         }
         int sid = scan.nextInt();
         System.out.println("Submissions: \n");
-        for (int i = 0; i < assignments.size(); i++) {
-            if (assignments.get(i).getsubmitted() && assignments.get(i).getStudent_id() == sid) {
-                System.out.println("Submission: " + assignments.get(i).getSolution() + "\n------------");
-                System.out.println("Max marks : " + assignments.get(i).getMarks());
+
+        for (int i = 0; i < assessments.size(); i++) {
+            if (assessments.get(i).getId()==sid) {
+                System.out.println("Submission: " + assessments.get(i).getSolution() + "\n------------");
+                System.out.println("Max marks : " + assessments.get(i).getMarks());
                 System.out.println("Marks scored: " );
-                assignments.get(i).setMarksobtained(scan.nextInt());
-                assignments.get(i).setInstructor_id(id);
-                assignments.get(i).setgradedtrue();
+                assessments.get(i).setMarksobtained(scan.nextInt());
+                assessments.get(i).setInstructor_id(id);
+                assessments.get(i).setgradedtrue();
+                break;
             }
+
         }
 
 
@@ -135,27 +152,33 @@ public class instructor {
     public void closeassignment() {
         System.out.println("List of open asssignments");
         int flag = 0;
-        for (int i = 0; i < assignments.size(); i++) {
-            if(assignments.get(i).getType().equals("assignment")){flag++;
-                System.out.println("ID: " + assignments.get(i).getId() + " Assignment: " + assignments.get(i).getQuestion() + " Max Marks: " + assignments.get(i).getMarks() +
+        for (int i = 0; i < assessments.size(); i++) {
+            if(assessments.get(i).getType().equals("assignment")){flag++;
+                System.out.println("ID: " + assessments.get(i).getId() + " Assignment: " + assessments.get(i).getQuestion() + " Max Marks: " + assessments.get(i).getMarks() +
                         "\n----------------");}
             else{flag++;
-                System.out.println("ID: " + assignments.get(i).getId() + " Question: " + assignments.get(i).getQuestion() +
+                System.out.println("ID: " + assessments.get(i).getId() + " Question: " + assessments.get(i).getQuestion() +
                         "\n----------------");
             }
         }
         if(flag==0){
-            System.out.println("no assignments found");
+            System.out.println("no assessments found");
             return;
         }
         int closeid;
         System.out.println("Enter id of assignment to close: ");
         closeid = scan.nextInt();
-        for (int i = 0; i < assignments.size(); i++) {
-            if (assignments.get(i).getId() == closeid) {
-                assignments.get(i).setclosedtrue();
+        for (int i = 0; i < assessments.size(); i++) {
+            if (assessments.get(i).getId() == closeid) {
+                assessments.get(i).setclosedtrue();
             }
 
         }
+    }
+    public void addcomment(){
+        System.out.println("Enter comment: ");
+        scan.nextLine();
+        String comment = scan.nextLine();
+        comments.add(new comments(id,comment));
     }
 }

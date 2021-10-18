@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class student {
     public static final Scanner scan = new Scanner(System.in);
     private int id;
-    private ArrayList<assignments> assignments = instructor.getAssignments();
+    private ArrayList<assessment> assessments = instructor.getAssessments();
     public student(int id) {
         this.id = id;
     }
@@ -11,60 +11,77 @@ public class student {
         System.out.println("Welcome S" + id);
     }
 
-    public void submit_assignments(){
-        System.out.println("Pending Assignments");
-        for(int i = 0 ; i< assignments.size();i++){
-            if(!assignments.get(i).getclosed()&&!assignments.get(i).getsubmitted()){
-                System.out.println("ID: " + assignments.get(i).getId() + " Assignment: " + assignments.get(i).getQuestion() + " Max Marks: " + assignments.get(i).getMarks());
+    public void submit_assessments(){
+        System.out.println("Pending assessments");
+        int flag = 0;
+        for(int i = 0 ; i< assessments.size();i++){
+            if(!assessments.get(i).getclosed()&& assessments.get(i).getStudent_id()!=id){
+
+                if(assessments.get(i).getType().equals("assignment")){flag++;
+                    System.out.println("ID: " + assessments.get(i).getId() + " Assignment: " + assessments.get(i).getQuestion() + " Max Marks: " + assessments.get(i).getMarks() +
+                            "\n----------------");}
+                else{flag++;
+                    System.out.println("ID: " + assessments.get(i).getId() + " Question: " + assessments.get(i).getQuestion() +
+                            "\n----------------");
+                }
             }
+        }
+        if(flag==0){
+            System.out.println("no assessments found");
+            return;
         }
         System.out.println("Enter ID of assessment: ");
         int tempid = scan.nextInt();
-        for(int i = 0 ; i<assignments.size();i++){
-            if(tempid==assignments.get(i).getId()){
-                if(assignments.get(i).getType().equals("assignment")){
+        for(int i = 0 ; i<assessments.size();i++){
+            if(tempid==assessments.get(i).getId()){
+                if(assessments.get(i).getType().equals("assignment")){
                     System.out.println("Enter filename of assignment:");
                     String file = scan.next();
-                    if(file.length()<4&&!file.substring(file.length()-4).equals(".zip")){
+                    if(file.length()<4){
+                        System.out.println("file is of unsupported type");
+                        return;
+                    }
+                    if(!file.substring(file.length()-4).equals(".zip")){
                         System.out.println("file is of unsupported type");
                         return;
                     }
                     else{
-                        assignments.get(i).setSolution(file);
+                        assessments.get(i).setSolution(file);
+                        assessments.get(i).setSubmittedtrue();
                     }
                 }
                 else{
-                    System.out.println(assignments.get(i).getQuestion());
+                    System.out.println(assessments.get(i).getQuestion());
                     scan.nextLine();
                     String ans = scan.nextLine();
-                    assignments.get(i).setSolution(ans);
+                    assessments.get(i).setSolution(ans);
 
                 }
 
             }
         }
 
-        for(int i = 0 ; i<assignments.size();i++){
-            if(assignments.get(i).getId()==tempid){
-                assignments.get(i).setSubmittedtrue();
-                assignments.get(i).setStudent_id(id);
+        for(int i = 0 ; i<assessments.size();i++){
+            if(assessments.get(i).getId()==tempid){
+                assessments.get(i).setSubmittedtrue();
+                assessments.get(i).setStudent_id(id);
             }
         }
 
     }
     public void view_grades(){
         System.out.println("Ungraded submissions:");
-        for(int i = 0;i< assignments.size();i++){
-            if(assignments.get(i).getStudent_id()==id && !assignments.get(i).getgraded()&&assignments.get(i).getSolution()!=null){
-                System.out.println("submission: "+assignments.get(i).getSolution()+"\n-----------------");
+        for(int i = 0;i< assessments.size();i++){
+            if(assessments.get(i).getStudent_id()==id && !assessments.get(i).getgraded()&&assessments.get(i).getSolution()!=null){
+                System.out.println("submission: "+assessments.get(i).getSolution()+"\n-----------------");
             }
         }
         System.out.println("Graded submissions:");
-        for(int i = 0;i< assignments.size();i++){
-            if(assignments.get(i).getStudent_id()==id && assignments.get(i).getgraded()){
-                System.out.println("submission: "+assignments.get(i).getSolution()+"\n-----------------");
-                System.out.println("Marks scored: "+assignments.get(i).getMarksobtained());
-                System.out.println("Graded by: I"+assignments.get(i).getInstructor_id());
+        for(int i = 0;i< assessments.size();i++){
+            if(assessments.get(i).getStudent_id()==id && assessments.get(i).getgraded()){
+                System.out.println("submission: "+assessments.get(i).getSolution()+"\n-----------------");
+                System.out.println("Marks scored: "+assessments.get(i).getMarksobtained());
+                System.out.println("Graded by: I"+assessments.get(i).getInstructor_id());
             }
         }
 
