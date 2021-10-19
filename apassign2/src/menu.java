@@ -7,12 +7,14 @@ public class menu {
     static int stuid;
     static ArrayList<instructor> instructors = new ArrayList<instructor>();
     static ArrayList<student> students = new ArrayList<student>();
+    private static ArrayList<comments> comments = new ArrayList<comments>();
 
     public static void initialize_instructors(){
         instructor i0 = new instructor(0);
         instructors.add(i0);
         instructor i1 = new instructor(1);
         instructors.add(i1);}
+
     public static void add_instructors(){
         System.out.println("Instructors:");
         for(int i = 0 ;i<instructors.size();i++){
@@ -87,7 +89,8 @@ public class menu {
             if(mainmenu==1){
                 menu.add_instructors();
                 while(true){
-                    menu.instructor_menu();
+                    interface1 temp = instructors.get(instructid) ;
+                    instructors.get(instructid).getmenu();
                     instructormenu = scan.nextInt();
                     if(instructormenu==9){
                         break;
@@ -99,10 +102,11 @@ public class menu {
                         instructors.get(instructid).addassignments();
                     }
                     else if(instructormenu==3){
-                        instructors.get(instructid).viewmaterials();
+                        temp.viewmaterials();
+
                     }
                     else if(instructormenu==4){
-                        instructors.get(instructid).viewassessments();
+                        temp.viewassessments();
                     }
                     else if(instructormenu==5){
                         instructors.get(instructid).gradeassignments();
@@ -111,26 +115,28 @@ public class menu {
                         instructors.get(instructid).closeassignment();
                     }
                     else if(instructormenu==8){
-                        instructors.get(instructid).addcomment();
+                        temp.addcomment(comments);
                     }
                     else if(instructormenu==7){
-                        instructors.get(instructid).viewcomment();
+                        temp.viewcomment(comments);
                     }
                 }
             }
             else if(mainmenu==2){
                 menu.add_students();
                 while(true){
-                    menu.student_menu();
+                    interface1 temp = students.get(stuid) ;
+                    students.get(stuid).getmenu();
                     studentmenu = scan.nextInt();
                     if(studentmenu==7){
                         break;
                     }
                     else if(studentmenu==1){
-                        instructors.get(0).viewmaterials();
+
+                        temp.viewmaterials();
                     }
                     else if(studentmenu==2){
-                        instructors.get(0).viewassessments();
+                        temp.viewassessments();
                     }
                     else if(studentmenu==3){
                         students.get(stuid).submit_assessments();
@@ -139,10 +145,10 @@ public class menu {
                         students.get(stuid).view_grades();
                     }
                     else if(studentmenu==6){
-                        students.get(stuid).addcomment();
+                        temp.addcomment(comments);
                     }
                     else if(studentmenu==5){
-                        instructors.get(0).viewcomment();
+                        temp.viewcomment(comments);
                     }
 
                 }

@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class student {
+public class student implements interface1{
     public static final Scanner scan = new Scanner(System.in);
     private int id;
     private ArrayList<assessment> assessments = instructor.getAssessments();
-    private ArrayList<comments> comments = instructor.getComments();
+    private ArrayList<material> materials = instructor.getMaterials();
     public student(int id) {
         this.id = id;
     }
@@ -14,6 +14,17 @@ public class student {
 
     public int getId(){
         return id;
+    }
+    @Override
+    public void getmenu(){
+        System.out.println("STUDENT MENU\n" +
+                "1. View lecture materials\n" +
+                "2. View assessments\n" +
+                "3. Submit assessment\n" +
+                "4. View grades\n" +
+                "5. View comments\n" +
+                "6. Add comments\n" +
+                "7. Logout");
     }
     public void submit_assessments(){
         System.out.println("Pending assessments");
@@ -74,6 +85,31 @@ public class student {
 //        }
 
     }
+    @Override
+    public void viewmaterials() {
+        for (int i = 0; i < materials.size(); i++) {
+            materials.get(i).display();
+            System.out.println("Uploaded by: I" + materials.get(i).getUploadid());
+        }
+    }
+    @Override
+    public void viewassessments() {
+        for (int i = 0; i < assessments.size(); i++) {
+            if(i!=0) {
+                if (assessments.get(i).getId() == assessments.get(i - 1).getId()) {
+                    continue;
+                }
+            }
+            if(assessments.get(i).getType().equals("assignment")){
+
+                System.out.println("ID: " + assessments.get(i).getId() + " Assignment: " + assessments.get(i).getQuestion() + " Max Marks: " + assessments.get(i).getMarks() +
+                        "\n----------------");}
+            else{
+                System.out.println("ID: " + assessments.get(i).getId() + " Question: " + assessments.get(i).getQuestion() +
+                        "\n----------------");
+            }
+        }
+    }
     public void view_grades(){
         System.out.println("Ungraded submissions:");
         for(int i = 0;i< assessments.size();i++){
@@ -91,11 +127,24 @@ public class student {
         }
 
     }
-    public void addcomment(){
+    @Override
+    public void addcomment(ArrayList<comments> comments){
         System.out.println("Enter comment: ");
-        scan.nextLine();
         String comment = scan.nextLine();
         comments.add(new comments(id,comment,"student"));
+    }
+    @Override
+    public void viewcomment(ArrayList<comments> comments){
+        for(int i=0;i< comments.size();i++){
+            if(comments.get(i).getType()=="instructor"){
+                System.out.println(comments.get(i).getComment()+" I"+comments.get(i).getId());
+                System.out.println(comments.get(i).getDate()+"\n");
+            }
+            else if(comments.get(i).getType()=="student"){
+                System.out.println(comments.get(i).getComment()+" S"+comments.get(i).getId());
+                System.out.println(comments.get(i).getDate()+"\n");
+            }
+        }
     }
 
 }

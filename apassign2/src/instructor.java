@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class instructor {
+public class instructor implements interface1{
     public static final Scanner scan = new Scanner(System.in);
     private int id;
     private static ArrayList<material> materials = new ArrayList<material>();
     private static ArrayList<assessment> assessments = new ArrayList<assessment>();
-    private static ArrayList<comments> comments = new ArrayList<comments>();
+
     private static ArrayList<student> students = menu.students;
     private int assessmentid = 0;
 
@@ -16,6 +16,20 @@ public class instructor {
 
     public void display() {
         System.out.println("Welcome I" + id);
+    }
+    @Override
+    public void getmenu(){
+
+        System.out.println("INSTRUCTOR MENU\n" +
+                "1. Add class material\n" +
+                "2. Add assessments\n" +
+                "3. View lecture materials\n" +
+                "4. View assessments\n" +
+                "5. Grade assessments\n" +
+                "6. Close assessment\n" +
+                "7. View comments\n" +
+                "8. Add comments\n" +
+                "9. Logout");
     }
 
     public void addmaterial() {
@@ -63,11 +77,10 @@ public class instructor {
     public static ArrayList<material> getMaterials() {
         return materials;
     }
-    public static ArrayList<comments> getComments() {
-        return comments;
-    }
 
 
+
+    @Override
     public void viewmaterials() {
         for (int i = 0; i < materials.size(); i++) {
             materials.get(i).display();
@@ -87,7 +100,8 @@ public class instructor {
             System.out.println("Enter max marks: ");
             int marks = scan.nextInt();
             for(int i =0;i<students.size();i++){
-            assessments.add(new assignment(question, marks,id,assessmentid,students.get(i).getId()));}
+            assessment addnew = new assignment(question, marks,id,assessmentid,students.get(i).getId());
+            assessments.add(addnew);}
             assessmentid++;
 
         } else if (temp == 2) {
@@ -99,7 +113,7 @@ public class instructor {
             assessmentid++;
         }
     }
-
+    @Override
     public void viewassessments() {
         for (int i = 0; i < assessments.size(); i++) {
             if(i!=0) {
@@ -192,12 +206,14 @@ public class instructor {
 
         }
     }
-    public void addcomment(){
+    @Override
+    public void addcomment(ArrayList<comments> comments){
         System.out.println("Enter comment: ");
         String comment = scan.nextLine();
         comments.add(new comments(id,comment,"instructor"));
     }
-    public void viewcomment(){
+    @Override
+    public void viewcomment(ArrayList<comments> comments){
         for(int i=0;i< comments.size();i++){
             if(comments.get(i).getType()=="instructor"){
                 System.out.println(comments.get(i).getComment()+" I"+comments.get(i).getId());

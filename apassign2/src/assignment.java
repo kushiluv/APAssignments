@@ -2,7 +2,7 @@ public class assignment implements assessment{
     private int id;
     private String question;
     private final int marks;
-    private int marksobtained;
+    private int marksobtained=-1;
     private boolean closed=false;
     private boolean graded=false;
     private boolean submitted=false;
@@ -78,7 +78,9 @@ public class assignment implements assessment{
     }
     @Override
     public void setMarksobtained(int marksobtained){
-        this.marksobtained = marksobtained;
+    if(this.marksobtained==-1){
+        this.marksobtained=marksobtained;
+    }
     }
     @Override
     public int getMarksobtained(){
