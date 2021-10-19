@@ -209,7 +209,8 @@ public class instructor implements interface1{
     @Override
     public void addcomment(ArrayList<comments> comments){
         System.out.println("Enter comment: ");
-        String comment = scan.nextLine();
+        Scanner scantext = new Scanner(System.in);
+        String comment = scantext.nextLine();
         comments.add(new comments(id,comment,"instructor"));
     }
     @Override
