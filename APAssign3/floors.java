@@ -1,4 +1,4 @@
-public class floors extends player {
+public abstract class floors extends player {
     public static int floor_type(){
         if (floor_no==0||floor_no==1||floor_no==3||floor_no==4||floor_no==6||floor_no==7||floor_no==9||floor_no==10||floor_no==12||floor_no==13){
             return 0;
