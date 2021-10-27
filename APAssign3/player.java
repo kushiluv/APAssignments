@@ -12,4 +12,5 @@ public class player {
         System.out.println(name+" accumulated "+point+" points");
         System.out.println("---------------------------------------------------------------");
     }
+
 }
