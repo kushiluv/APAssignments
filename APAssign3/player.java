@@ -1,16 +1,29 @@
 public class player {
-    public static  int floor_no=0;
-    public static String name;
-    public static int point=1;
+    private static  int floor_no=0;
+    private static String name;
+    private static int point=1;
 
-
-    public static void disp(){
-        System.out.println("Hit enter to roll the dice");
+    public static int getFloor_no(){
+        return floor_no;
     }
-    public static void end(){
-        System.out.println("Game over");
-        System.out.println(name+" accumulated "+point+" points");
-        System.out.println("---------------------------------------------------------------");
+    public static void setFloor_no(int num){
+        floor_no = num;
+    }
+    public static int getPoint(){
+        return point;
+    }
+    public static void setPoint(int poin){
+        point += poin;
+    }
+    public static void setPoint1(){
+        point =1;
+    }
+
+    public static void setName(String nam){
+        name = nam;
+    }
+    public static String getName(){
+        return name;
     }
 
 }

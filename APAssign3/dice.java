@@ -2,16 +2,13 @@ import java.util.Random;
 
 public class dice {
     private Random rand = new Random();
-    private final int numFaces; //maximum face value
-    private int faceValue; //current value showing on the dice
-
-    // Constructor: Sets the initial face value.
+    private final int numFaces;
+    private int faceValue;
     public dice() {
         numFaces = 2;
         roll();
     }
 
-    // Rolls the dice
     public int roll() {
         int curr_faceValue = 1 + rand.nextInt(numFaces);
         setFaceValue(curr_faceValue);
