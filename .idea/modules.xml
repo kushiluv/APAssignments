@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/APAssign4.iml" filepath="$PROJECT_DIR$/APAssign4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/APAssignm4.iml" filepath="$PROJECT_DIR$/APAssignm4.iml" />
       <module fileurl="file://$PROJECT_DIR$/APassignment2projectzip.iml" filepath="$PROJECT_DIR$/APassignment2projectzip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/out/assign4.iml" filepath="$PROJECT_DIR$/out/assign4.iml" />
     </modules>
   </component>
 </project>

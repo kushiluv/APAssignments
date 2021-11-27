@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7cb11e95-664d-4317-a909-271b32a8f2c0" name="Changes" comment="finalcommit">
+      <change afterPath="$PROJECT_DIR$/APAssign4.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APAssignm4.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apassign2/src/instructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/apassign2/src/instructor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apassign2/src/student.java" beforeDir="false" afterPath="$PROJECT_DIR$/apassign2/src/student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/APassignment2projectzip/instructor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/APassignment2projectzip/instructor.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,14 +23,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/apassign2/src/assessment.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apassign2/src/menu.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apassign2/src/material.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apassign2/src/instructor.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apassign2/src/assignment.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apassign2/src/quiz.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apassign2/src/student.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apassign2/src/assessment.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apassign2/src/interface1.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apassign2/src/instructor.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apassign2/src/material.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apassign2/src/menu.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apassign2/src/student.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apassign2/src/quiz.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1zgrZ1tGZZiNmfckejL0UUAXodK" />
   <component name="ProjectViewState">
@@ -41,6 +41,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kushi\Documents\APAssignm\" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="menu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
