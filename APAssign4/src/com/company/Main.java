@@ -50,16 +50,14 @@ public class Main {
             }
             player.jump();
             flag=0;
-            while(true) {
+
                 try {
                      Carpet.getTiles().get(player.getHop());
-                     break;
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("You are too energetic and zoomed past all the tiles. Muddy Puddle Splash!");
                     flag=1;
-                    break;
                 }
-            }
+
             if(flag==1){
                 j++;
                 continue;
