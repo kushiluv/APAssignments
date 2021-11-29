@@ -63,7 +63,7 @@ public class Main {
                 continue;
             }
             if (player.getHop() % 2 == 0) {
-                Toys toy_clone = Carpet.get(player.getHop()).getToy().clone();
+                Toys toy_clone = Carpet.get(player.getHop()).cloneToy();
                 bucket.add_toy(toy_clone);
                 System.out.println("You won a "+toy_clone.getName()+" soft toy.");
             }
@@ -82,8 +82,8 @@ public class Main {
                     }
                 }
                 if(typeq.equals("integer")) {
-                    rand1 = rand.nextInt();
-                    rand2 = rand.nextInt(Math.abs(rand1) / 2);
+                    rand1 = Math.abs(rand.nextInt());
+                    rand2 = Math.abs(rand.nextInt(Math.abs(rand1) / 2));
                     System.out.println("Calculate the result of " + rand1 + " divided by " + rand2);
                     int sol ;
 
@@ -102,7 +102,7 @@ public class Main {
                     int calcu = calculator.calculate(rand1, rand2);
                     if (sol == calcu) {
                         System.out.println("Correct answer");
-                        Toys toy_clone = Carpet.get(player.getHop()).getToy().clone();
+                        Toys toy_clone = Carpet.get(player.getHop()).cloneToy();
                         bucket.add_toy(toy_clone);
                         System.out.println("You won a " + toy_clone.getName() + " soft toy.");
                     } else {
@@ -128,7 +128,7 @@ public class Main {
                         String calcu = calculator.calculate(random,random1);
                         if(ans.equals(calcu)){
                             System.out.println("Correct answer");
-                            Toys toy_clone = Carpet.get(player.getHop()).getToy().clone();
+                            Toys toy_clone = Carpet.get(player.getHop()).cloneToy();
                             bucket.add_toy(toy_clone);
                             System.out.println("You won a "+toy_clone.getName()+" soft toy.");
                         }
