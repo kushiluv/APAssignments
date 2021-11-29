@@ -26,28 +26,52 @@ public class Main {
         }
         Carpet carpet = new Carpet(tiles);
         Bucket bucket = new Bucket();
+
+        while(true) {
+            try {
+                System.out.println("Hit enter to initialize the game");
+                String temps = scan2.nextLine();
+                if (!(temps.equals("")) ) {
+                    throw new InputMismatchException("Invalid input");
+                }
+                else{
+                    System.out.println("Game is ready");
+                    break;
+                }
+
+            } catch (InputMismatchException nts) {
+                System.out.println(nts);
+            }
+        }
         while (j < 5) {
             if(j==0){
                 System.out.println("Hit enter for your first hop");
-                scan1.nextLine();
             }
             else if(j==2){
                 System.out.println("Hit enter for your third hop");
-                scan1.nextLine();
             }
             else if(j==3){
                 System.out.println("Hit enter for your fourth hop");
-                scan1.nextLine();
             }
             else if(j==1){
                 System.out.println("Hit enter for your second hop");
-                scan1.nextLine();
             }
             else{
                     System.out.println("Hit enter for your fifth hop");
-                    scan1.nextLine();
 
             }
+            while(true) {
+                try {
+                    String temps1 = scan2.nextLine();
+                    if (!(temps1.equals("") )) {
+                        throw new InputMismatchException("Invalid input");
+                    }
+                    break;
+                } catch (InputMismatchException nts) {
+                    System.out.println(nts);
+                }
+            }
+
             player.jump();
             flag=0;
 
@@ -62,6 +86,8 @@ public class Main {
                 j++;
                 continue;
             }
+            int tile_no = carpet.get(player.getHop()).getTile_no()+1;
+            System.out.println("You landed on tile "+tile_no);
             if (player.getHop() % 2 == 0) {
                 Toys toy_clone = Carpet.get(player.getHop()).cloneToy();
                 bucket.add_toy(toy_clone);
@@ -74,22 +100,28 @@ public class Main {
                     try {
                         typeq = scan2.next();
                         if (!(typeq.equals("integer") || typeq.equals("string"))) {
-                            throw new notIntegerorString("Enter integer or string as the input");
+                            throw new InputMismatchException("Enter integer or string as the input");
                         }
                         break;
-                    } catch (notIntegerorString nts) {
-                        System.out.println(nts.getMessage());
+                    } catch (InputMismatchException nts) {
+                        System.out.println(nts);
                     }
                 }
                 if(typeq.equals("integer")) {
-                    rand1 = Math.abs(rand.nextInt());
-                    rand2 = Math.abs(rand.nextInt(Math.abs(rand1) / 2));
+                    rand1 = (rand.nextInt());
+                    rand2 = (rand.nextInt());
+
+                    if(rand2==0){
+                        rand2++;
+                    }
+
                     System.out.println("Calculate the result of " + rand1 + " divided by " + rand2);
                     int sol ;
 
                     while(true){
                         try{
                             sol = scan2.nextInt();
+                            scan2.nextLine();
                             break;
                         }
                         catch(InputMismatchException e){
@@ -141,7 +173,7 @@ public class Main {
             j++;
         }
         System.out.println("Game Over");
-        System.out.println("Soft toys won by you are:");
+        System.out.println("\nSoft toys won by you are:");
         bucket.print_collected_toys();
     }
 }
