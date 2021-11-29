@@ -1,14 +1,21 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+
 
     public static void main(String[] args) {
         Scanner scan1 = new Scanner(System.in);
         Scanner scan2 = new Scanner(System.in);
         Player player = new Player();
+        Random rand = new Random();
+        String type;
+        int rand1,rand2,flag;
+        String random,random1 ;
         int j = 0;
 
         ArrayList<Tile> tiles = new ArrayList<>();
@@ -42,20 +49,101 @@ public class Main {
 
             }
             player.jump();
-            if(player.getHop()<=20){
-                System.out.println("You landed on tile "+player.getHop());
+            flag=0;
+            while(true) {
+                try {
+                     Carpet.getTiles().get(player.getHop());
+                     break;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("You are too energetic and zoomed past all the tiles. Muddy Puddle Splash!");
+                    flag=1;
+                    break;
+                }
             }
-            else{
-                System.out.println("You are too energetic and zoomed past all the tiles. Muddy Puddle Splash!");
+            if(flag==1){
+                j++;
                 continue;
             }
             if (player.getHop() % 2 == 0) {
                 Toys toy_clone = Carpet.get(player.getHop()).getToy().clone();
                 bucket.add_toy(toy_clone);
-//                System.out.println(bucket_.getName());
+                System.out.println("You won a "+toy_clone.getName()+" soft toy.");
+            }
+            else{
+                System.out.println("Question answer round. Integer or strings?");
+                String typeq;
+                while(true) {
+                    try {
+                        typeq = scan2.next();
+                        if (!(typeq.equals("integer") || typeq.equals("string"))) {
+                            throw new notIntegerorString("Enter integer or string as the input");
+                        }
+                        break;
+                    } catch (notIntegerorString nts) {
+                        System.out.println(nts.getMessage());
+                    }
+                }
+                if(typeq.equals("integer")) {
+                    rand1 = rand.nextInt();
+                    rand2 = rand.nextInt(Math.abs(rand1) / 2);
+                    System.out.println("Calculate the result of " + rand1 + " divided by " + rand2);
+                    int sol ;
+
+                    while(true){
+                        try{
+                            sol = scan2.nextInt();
+                            break;
+                        }
+                        catch(InputMismatchException e){
+                            System.out.println("Wrong input , try again");
+                            scan2.nextLine();
+
+                        }
+                    }
+                    Calculator<Integer> calculator = new Calculator<Integer>();
+                    int calcu = calculator.calculate(rand1, rand2);
+                    if (sol == calcu) {
+                        System.out.println("Correct answer");
+                        Toys toy_clone = Carpet.get(player.getHop()).getToy().clone();
+                        bucket.add_toy(toy_clone);
+                        System.out.println("You won a " + toy_clone.getName() + " soft toy.");
+                    } else {
+                        System.out.println("Incorrect answer");
+                        System.out.println("You didn't win any soft toy");
+
+                    }
+                }
+                else if(typeq.equals("string")){
+                        String total = "abcde" +
+                                "\fghijklmnopqrstvuwxyzABCDEFGHIJKLMNOPQRSTVUWXYZ0123456789";
+                        random ="";
+                        random1 = "";
+                        for(int i = 0 ; i<4 ; i++){
+                            rand1 = rand.nextInt(62);
+                            rand2 = rand.nextInt(62);
+                            random+=(total.charAt(rand1));
+                            random1+=(total.charAt(rand2));
+                        }
+                        System.out.println("Calculate the concatenation of strings "+random+" and "+random1);
+                        String ans = scan2.next();
+                        Calculator<String> calculator= new Calculator<String>();
+                        String calcu = calculator.calculate(random,random1);
+                        if(ans.equals(calcu)){
+                            System.out.println("Correct answer");
+                            Toys toy_clone = Carpet.get(player.getHop()).getToy().clone();
+                            bucket.add_toy(toy_clone);
+                            System.out.println("You won a "+toy_clone.getName()+" soft toy.");
+                        }
+                        else{
+                            System.out.println("Incorrect answer");
+                            System.out.println("You didn't win any soft toy");
+                        }
+                }
             }
             j++;
         }
+        System.out.println("Game Over");
+        System.out.println("Soft toys won by you are:");
         bucket.print_collected_toys();
     }
 }

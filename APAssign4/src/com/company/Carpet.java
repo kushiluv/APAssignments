@@ -9,7 +9,7 @@ public class Carpet {
         this.tiles = tiles;
     }
 
-    public ArrayList<Tile> getTiles() {
+    public static ArrayList<Tile> getTiles() {
         return tiles;
     }
     public static Tile get(int i){
